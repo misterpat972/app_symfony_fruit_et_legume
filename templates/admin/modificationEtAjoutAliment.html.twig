@@ -1,0 +1,34 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Admin{% endblock %}
+
+{% block monTitre %} 
+{% if isModif %} Modification Aliment {{ aliment.nom }}
+{% else %}
+    Ajout d'un aliment
+{% endif %}
+{% endblock %}
+{% block body %}    
+    
+{# formulaire de modification #}
+<div class="container">
+    {# début du formulaire  #}
+    {{ form_start(form) }} 
+    <div class="row">
+        <div class="col-6">
+            <img src=" {{ asset('images/' ~ aliment.image )}}" style="width: 20%" alt=" {{ aliment.nom}}">
+            <div> {{ form_row(form.image) }} </div>
+                {# form_row permet d'ajouter des attributs class et label à nos inputs #}
+                {{ form_row(form.nom, {"attr" : {'class':'text-danger bg-success'}, "label":"Nom de l'aliment"}) }}
+        </div>
+        <div class="col-6">
+            {# affichage du formulaire en brut dans attribut personnalisé #}
+            {{ form_widget(form) }}
+        </div>
+    </div>  
+    {# ici c'est le bouton submit que j'ai créer pour envoyer le formulaire #}
+    <input class="btn btn-primary" type="submit" value="Modifier">    
+    {# fin du formulaire #}
+    {{ form_end(form) }}       
+</div>
+{% endblock %}

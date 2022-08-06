@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}listes des aliments{% endblock %}
+
+{% block monTitre %} 
+Liste de tout les aliments
+    {% if isCalorie %}
+        aliments de moins de 50 calories au 100 g
+    {% elseif isGlucide %}
+        aliments avec moins de 5 glucides au 100 g
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+<div class="m-5">
+    <p><a href=" {{ path('aliments')}} " class="btn btn-primary">Listes des aliments</a></p>
+</div>
+<div class="row mt-3">
+{% for aliment in aliments %}
+        <div class="col-12 col-md-6 lg-4 col-xl-3">
+            <div class="card border-primary mb-3 mx-auto" style="max-width: 20rem;">
+                <div class="card-header text-center"><img src=" {{ asset('images/' ~ aliment.image) }} " alt="aliment.image"  class="card-img-top perso_imgAliment"></div>
+                <div class="card-body">
+                    <h4 class="card-title">{{ aliment.nom }}</h4>
+                    <p class="card-text">                        
+                        <h4>Prix au kilos : {{ aliment.prix }}€</h4>
+                        <table class="table text-center">
+                            <tr class="table-primary">
+                                <td>
+                                    Propriété
+                                </td>
+                                <td>
+                                   Valeur
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Calories
+                                </td>
+                                <td>
+                                    {{ aliment.calories }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Protéines
+                                </td>
+                                <td>
+                                    {{ aliment.proteine }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Glucides
+                                </td>
+                                <td>
+                                    {{ aliment.glucide }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Lipides
+                                </td>
+                                <td>
+                                    {{ aliment.lipide }}
+                                </td>
+                            </tr>
+                        </table>                      
+                    </p>                    
+                </div>
+            </div>
+        </div>
+        {% endfor %}    
+</div>
+{% endblock %}
