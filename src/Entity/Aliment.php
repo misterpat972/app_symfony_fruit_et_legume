@@ -6,8 +6,11 @@ use App\Repository\AlimentRepository;
 use Doctrine\ORM\Mapping as ORM;
 // symfony validator permet d'exercer un contrôle sur les données saisies par l'utilisateur //
 use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: AlimentRepository::class)]
+// utilisation du bundle vich
+#[Vich\Uploadable]
 class Aliment
 {
     #[ORM\Id]
