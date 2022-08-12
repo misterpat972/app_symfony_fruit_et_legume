@@ -6,11 +6,16 @@ use App\Repository\AlimentRepository;
 use Doctrine\ORM\Mapping as ORM;
 // symfony validator permet d'exercer un contrôle sur les données saisies par l'utilisateur //
 use Symfony\Component\Validator\Constraints as Assert;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\File;
+use vich\uploaderBundle\Mapping\Annotation as Vich;
+
+
 
 #[ORM\Entity(repositoryClass: AlimentRepository::class)]
 // utilisation du bundle vich
 #[Vich\Uploadable]
+ 
+ 
 class Aliment
 {
     #[ORM\Id]
@@ -30,6 +35,11 @@ class Aliment
 
     #[ORM\Column(length: 255)]
     private ?string $image = null;
+
+    
+    #[Vich\UploadableField(mapping="image_aliment", fileNameProperty="image")]  
+
+    private ?string $imageFile = null;
 
     #[ORM\Column]
     private ?int $calories = null;
@@ -82,6 +92,25 @@ class Aliment
         $this->image = $image;
 
         return $this;
+    }
+
+    public function getImageFile()
+    {
+        return $this->imageFile;
+    }
+
+    public function setImageFile(string $image = null): self
+    {
+        $this->imageFile = $image;
+        return $this;
+
+        // VERY IMPORTANT:
+        // It is required that at least one field changes if you are using Doctrine,
+        // otherwise the event listeners won't be called and the file is lost
+        // if ($image) {
+        //     // if 'updatedAt' is not defined in your entity, use another property
+        //     $this->updatedAt = new \DateTime('now');
+        // }
     }
 
     public function getCalories(): ?int

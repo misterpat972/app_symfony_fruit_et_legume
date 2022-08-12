@@ -1,10 +1,9 @@
 vich_uploader:
     db_driver: orm
 
-    mappings:
-    # gestion des images
+    mappings:    
        aliment_image:
-    # prefixe d'installation des images le    
-           uri_prefix: /images/aliments
-        #    la destination de l'image sur le serveur
-           upload_destination: '%kernel.project_dir%/public/images/aliments'
+           uri_prefix: %image_aliment%
+           upload_destination: '%kernel.project_dir%/public%image_aliment%'
+           namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+           
