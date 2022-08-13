@@ -7,8 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 // symfony validator permet d'exercer un contrôle sur les données saisies par l'utilisateur //
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\File;
-use vich\uploaderBundle\Mapping\Annotation as Vich;
-
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 
 #[ORM\Entity(repositoryClass: AlimentRepository::class)]
@@ -32,14 +32,13 @@ class Aliment
     // on ajoute une contrainte de validation pour le prix de l'aliment avec assert\range //
     #[Assert\Range(min : 3, max : 15, notInRangeMessage : "Le nom de l'aliment doit être compris entre 3 et 15 caractères")]
     private ?float $prix = null;
-
+    
     #[ORM\Column(length: 255)]
     private ?string $image = null;
 
-    
-    #[Vich\UploadableField(mapping="image_aliment", fileNameProperty="image")]  
-
-    private ?string $imageFile = null;
+    // ajout d'une propriété pour stocker le nom du fichier temporairement //
+    #[Vich\UploadableField(mapping:"aliment_image", fileNameProperty:"image")]   
+    private ?File $imageFile = null;
 
     #[ORM\Column]
     private ?int $calories = null;
@@ -99,9 +98,9 @@ class Aliment
         return $this->imageFile;
     }
 
-    public function setImageFile(string $image = null): self
+    public function setImageFile(File $imageFile = null): self
     {
-        $this->imageFile = $image;
+        $this->imageFile = $imageFile;
         return $this;
 
         // VERY IMPORTANT:

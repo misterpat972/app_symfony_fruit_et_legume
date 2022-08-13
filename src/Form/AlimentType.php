@@ -8,6 +8,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 
+
 class AlimentType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -15,7 +16,11 @@ class AlimentType extends AbstractType
         $builder
             ->add('nom')
             ->add('prix')
-            ->add('imageFile', FileType::class, ['required' => false])
+            // element de type file pour l'image champ non obligatoire grace required //
+            // ->add('imageFile', FileType::class, ['required' => false])
+            ->add('imageFile',FileType::class, [
+                'required' => false,              
+            ])
             ->add('calories')
             ->add('proteine')
             ->add('glucide')
