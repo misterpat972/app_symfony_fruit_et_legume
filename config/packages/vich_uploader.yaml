@@ -1,6 +1,6 @@
 vich_uploader:
-    db_driver: orm  
- 
+    db_driver: orm     
+   
     mappings:    
        aliment_image:
            uri_prefix: /images/aliments

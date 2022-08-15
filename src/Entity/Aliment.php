@@ -2,21 +2,19 @@
 
 namespace App\Entity;
 
-use App\Repository\AlimentRepository;
+
 use Doctrine\ORM\Mapping as ORM;
 // symfony validator permet d'exercer un contrôle sur les données saisies par l'utilisateur //
-use Symfony\Component\Validator\Constraints as Assert;
+use App\Repository\AlimentRepository;
 use Symfony\Component\HttpFoundation\File\File;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Vich\UploaderBundle\Entity\File as EmbeddedFile;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
-
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: AlimentRepository::class)]
 // utilisation du bundle vich
 #[Vich\Uploadable]
- 
- 
-class Aliment
+ class Aliment
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -31,15 +29,16 @@ class Aliment
     #[ORM\Column]
     // on ajoute une contrainte de validation pour le prix de l'aliment avec assert\range //
     #[Assert\Range(min : 3, max : 15, notInRangeMessage : "Le nom de l'aliment doit être compris entre 3 et 15 caractères")]
-    private ?float $prix = null;
+    private ?float $prix = null;    
+      
+    #[ORM\Column(length: 255,)]    
+    private ?String $image = null;
     
-    #[ORM\Column(length: 255)]
-    private ?string $image = null;
-
     // ajout d'une propriété pour stocker le nom du fichier temporairement //
-    #[Vich\UploadableField(mapping:"aliment_image", fileNameProperty:"image")]   
-    private ?File $imageFile = null;
+    #[Vich\UploadableField(mapping:'aliment_image', fileNameProperty:'image')]   
+    private ?File $imageFile = null;     
 
+     
     #[ORM\Column]
     private ?int $calories = null;
 
@@ -86,19 +85,19 @@ class Aliment
         return $this->image;
     }
 
-    public function setImage(string $image): self
+    public function setImage(string $image): void
     {
         $this->image = $image;
+    
 
-        return $this;
     }
 
-    public function getImageFile()
+    public function getImageFile() :?File
     {
         return $this->imageFile;
     }
 
-    public function setImageFile(File $imageFile = null): self
+    public function setImageFile(?File $imageFile = null): self
     {
         $this->imageFile = $imageFile;
         return $this;
