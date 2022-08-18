@@ -38,7 +38,7 @@
     <tbody>
         {% for aliment in aliments %}     
       <tr>
-        <td><img class="perso_imgAliment" src="{{ asset('images/') ~ aliment.image }}" alt=""></td>
+        <td><img class="perso_imgAliment" src="{{ asset('images/aliments/') ~ aliment.image }}" alt=""></td>
         <td class="align-middle">{{ aliment.nom }}</td>
         <td class="align-middle">{{ aliment.prix }}</td>
         <td class="align-middle">{{ aliment.calories }}</td>

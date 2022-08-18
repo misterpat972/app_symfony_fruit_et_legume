@@ -16,7 +16,9 @@
     {{ form_start(form) }} 
     <div class="row">
         <div class="col-6">
-            <img src=" {{ asset('images/' ~ aliment.image )}}" style="width: 20%" alt=" {{ aliment.nom}}">
+            {% if isModif %}
+            <img src=" {{ asset('images/aliments/' ~ aliment.image )}}" style="width: 20%" alt=" {{ aliment.nom}}">
+            {% endif %}
             <div> {{ form_row(form.imageFile) }} </div>
                 {# form_row permet d'ajouter des attributs class et label à nos inputs #}
                 {{ form_row(form.nom, {"attr" : {'class':'text-danger bg-success'}, "label":"Nom de l'aliment"}) }}

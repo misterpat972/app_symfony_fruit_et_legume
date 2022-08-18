@@ -7,9 +7,9 @@ use Doctrine\ORM\Mapping as ORM;
 // symfony validator permet d'exercer un contrôle sur les données saisies par l'utilisateur //
 use App\Repository\AlimentRepository;
 use Symfony\Component\HttpFoundation\File\File;
-use Vich\UploaderBundle\Entity\File as EmbeddedFile;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 #[ORM\Entity(repositoryClass: AlimentRepository::class)]
 // utilisation du bundle vich
@@ -30,15 +30,14 @@ use Symfony\Component\Validator\Constraints as Assert;
     // on ajoute une contrainte de validation pour le prix de l'aliment avec assert\range //
     #[Assert\Range(min : 3, max : 15, notInRangeMessage : "Le nom de l'aliment doit être compris entre 3 et 15 caractères")]
     private ?float $prix = null;    
-      
+    
     #[ORM\Column(length: 255,)]    
     private ?String $image = null;
-    
-    // ajout d'une propriété pour stocker le nom du fichier temporairement //
-    #[Vich\UploadableField(mapping:'aliment_image', fileNameProperty:'image')]   
-    private ?File $imageFile = null;     
 
-     
+    // ajout d'une propriété pour stocker le nom du fichier temporairement //
+    #[Vich\UploadableField(mapping: 'aliment_image', fileNameProperty: 'image')]   
+    private ?File $imageFile = null; 
+    
     #[ORM\Column]
     private ?int $calories = null;
 
@@ -50,6 +49,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 
     #[ORM\Column]
     private ?float $lipide = null;
+
+    #[ORM\Column]
+    private ?\DateTime $updated_at = null;
 
     public function getId(): ?int
     {
@@ -85,11 +87,10 @@ use Symfony\Component\Validator\Constraints as Assert;
         return $this->image;
     }
 
-    public function setImage(string $image): void
+    public function setImage(?string $image): void
     {
-        $this->image = $image;
+        $this->image = $image;    
     
-
     }
 
     public function getImageFile() :?File
@@ -100,6 +101,12 @@ use Symfony\Component\Validator\Constraints as Assert;
     public function setImageFile(?File $imageFile = null): self
     {
         $this->imageFile = $imageFile;
+
+        if($this->imageFile instanceof UploadedFile)
+        {
+            $this->updated_at = new \DateTime('now');
+        }        
+
         return $this;
 
         // VERY IMPORTANT:
@@ -155,6 +162,18 @@ use Symfony\Component\Validator\Constraints as Assert;
     public function setLipide(float $lipide): self
     {
         $this->lipide = $lipide;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTime
+    {
+        return $this->updated_at;
+    }
+
+    public function setUpdatedAt(\DateTime $updated_at): self
+    {
+        $this->updated_at = $updated_at;
 
         return $this;
     }

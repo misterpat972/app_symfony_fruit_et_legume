@@ -7,7 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
-
+use Vich\UploaderBundle\Form\Type\VichFileType;
 
 class AlimentType extends AbstractType
 {
@@ -18,7 +18,7 @@ class AlimentType extends AbstractType
             ->add('prix')
             //element de type file pour l'image champ non obligatoire grace required //
             ->add('imageFile', FileType::class, ['required' => false,
-            'label' => 'image'])          
+            'label' => 'image'])                  
             ->add('calories')
             ->add('proteine')
             ->add('glucide')
