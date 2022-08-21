@@ -22,14 +22,20 @@
             <div> {{ form_row(form.imageFile) }} </div>
                 {# form_row permet d'ajouter des attributs class et label à nos inputs #}
                 {{ form_row(form.nom, {"attr" : {'class':'text-danger bg-success'}, "label":"Nom de l'aliment"}) }}
-        </div>
+                {# ajout du champ type #}
+                <div> {{ form_row(form.type) }} </div>
+            </div>
         <div class="col-6">
             {# affichage du formulaire en brut dans attribut personnalisé #}
             {{ form_widget(form) }}
         </div>
-    </div>  
+    </div> 
+    {% if isModif %}
     {# ici c'est le bouton submit que j'ai créer pour envoyer le formulaire #}
-    <input class="btn btn-primary" type="submit" value="Modifier">    
+        <input class="btn btn-primary" type="submit" value="Modifier">
+    {% else %}
+    <input class="btn btn-primary" type="submit" value="Ajouter">
+    {% endif %} 
     {# fin du formulaire #}
     {{ form_end(form) }}       
 </div>

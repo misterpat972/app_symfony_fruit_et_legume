@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Type d'aliment{% endblock %}
+
+{% block monTitre %} Liste des types d'aliments {% endblock %}
+
+{% block body %}
+    <div class="row">
+    {% for type in types %} 
+        <div class="col-6">
+            <div class="row align-items-center m-5">
+                <div class="col-lg-6 col-lg-4 col-lg-2">
+                <img src="{{asset('images/types/' ~ type.image )}}" alt="type.image" class="perso_imgAliment img-fluid">                    
+                <p>{{ type.libelle }}</p>
+            </div>
+                <div class="col">
+                    
+                </div>
+            </div>
+        </div>                     
+    {% endfor %}    
+    </div>
+{% endblock %}

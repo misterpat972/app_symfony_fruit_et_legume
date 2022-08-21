@@ -27,6 +27,7 @@
       <tr>
         <th scope="col">Image</th>
         <th scope="col">Aliments</th>
+        <th scope="col">Type</th>
         <th scope="col">Prix</th>
         <th scope="col">Calories</th>
         <th scope="col">Proteines</th>
@@ -39,7 +40,8 @@
         {% for aliment in aliments %}     
       <tr>
         <td><img class="perso_imgAliment" src="{{ asset('images/aliments/') ~ aliment.image }}" alt=""></td>
-        <td class="align-middle">{{ aliment.nom }}</td>
+        <td class="align-middle"><strong>{{ aliment.nom }}</strong></td>
+        <td class="align-middle">{{ aliment.type.libelle }}</td>
         <td class="align-middle">{{ aliment.prix }}</td>
         <td class="align-middle">{{ aliment.calories }}</td>
         <td class="align-middle">{{ aliment.proteine }}</td>

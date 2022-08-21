@@ -53,6 +53,12 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
     #[ORM\Column]
     private ?\DateTime $updated_at = null;
 
+    #[ORM\ManyToOne(inversedBy: 'aliments')]
+    private ?Type $type = null;
+
+   
+
+   
     public function getId(): ?int
     {
         return $this->id;
@@ -177,4 +183,18 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
         return $this;
     }
+
+    public function getType(): ?Type
+    {
+        return $this->type;
+    }
+
+    public function setType(?Type $type): self
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+  
 }

@@ -30,6 +30,8 @@
                     <h4 class="card-title">{{ aliment.nom }}</h4>
                     <p class="card-text">                        
                         <h4>Prix au kilos : {{ aliment.prix }}€</h4>
+                        {# je récupère l'objet type dans la class aliment #}
+                        <h4>Type : {{ aliment.type.libelle }}</h4>                        
                         <table class="table text-center">
                             <tr class="table-primary">
                                 <td>

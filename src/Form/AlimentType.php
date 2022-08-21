@@ -2,12 +2,14 @@
 
 namespace App\Form;
 
+use App\Entity\Type;
 use App\Entity\Aliment;
 use Symfony\Component\Form\AbstractType;
+use Vich\UploaderBundle\Form\Type\VichFileType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Vich\UploaderBundle\Form\Type\VichFileType;
 
 class AlimentType extends AbstractType
 {
@@ -23,6 +25,12 @@ class AlimentType extends AbstractType
             ->add('proteine')
             ->add('glucide')
             ->add('lipide')
+            // ici on a rappelé le champ type de l'entity Type en ajoutant sur quel champ on veux faire le choix//
+            ->add('type', EntityType::class, [
+                'class' => Type::class,
+                'choice_label' => 'libelle',
+                'label' => 'Type'
+            ])
         ;
     }
 
