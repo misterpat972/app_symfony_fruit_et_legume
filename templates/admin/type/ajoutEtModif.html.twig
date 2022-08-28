@@ -1,0 +1,19 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Type{% endblock %}
+
+{% block monTitre %} Type {{type.libelle}} {% endblock %}
+
+
+{% block body %}
+<div class="container">
+{# on démarre le formulaire #}
+{{form_start(form)}}
+    {# ici le forme_widget sert à afficher le contenu du formulaire #}
+    {{form_widget(form)}}
+    {# ajout d'un bouton pour le submit du formulaire #}
+    <input class="btn btn-primary" type="submit" value="{{isModif ? 'Modifier' : 'Ajouter'}}">
+{# on forme le formulaire #}
+{{form_end(form)}}
+</div>
+{% endblock %}
