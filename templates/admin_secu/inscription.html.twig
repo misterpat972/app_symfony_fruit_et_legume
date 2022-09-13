@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block monTitre %} Page d'inscription {% endblock %}
+
+{% block body %}
+<div class="container">
+    {# on demarre le formulaire #}
+    {{ form_start(form) }}
+    {# form_row permet de gérer la ligne d'un attribut du formulaire #}
+    {{ form_row(form.username, {
+        "attr": {           
+            "placeholder": "Nom d'utilisateur"
+        },
+        "label": "Nom d'utilisateur",
+    })}}
+        {# on affiche le formulaire #}
+        {{ form_widget(form) }}
+        <input type="submit" class="btn btn-primary"></input>
+    {# on ferme le formulaire #}
+    {{ form_end(form) }}
+</div>    
+{% endblock %}
