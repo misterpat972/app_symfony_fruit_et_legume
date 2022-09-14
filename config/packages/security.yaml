@@ -13,13 +13,32 @@ security:
     #         algorithm: auto
     providers:
         users_in_memory: { memory: null }
+        # on rajoute un provider pour la base de données
+        in_database:
+            entity:
+            # entité Utilisateur
+                class: App\Entity\Utilisateur
+                # le champ qui contient le nom d'utilisateur
+                property: username
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
             lazy: true
-            provider: users_in_memory
+            # provider: users_in_memory
+            provider: in_database
+            # on utilise le formulaire de login par défaut
+            form_login:
+            # ici le path vers le formulaire de login
+                login_path: connexion
+            # le chech_path est le path vers lequel le formulaire de login est envoyé dans action du formulaire
+                check_path: connexion
+
+            logout:
+                path: deconnexion
+                # on redirige vers la page d'accueil après la déconnexion
+                target: aliments   
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
@@ -30,7 +49,7 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
+         - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
 
 when@test:

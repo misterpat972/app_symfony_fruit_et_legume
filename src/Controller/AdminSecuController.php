@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class AdminSecuController extends AbstractController
 {
@@ -38,5 +38,24 @@ class AdminSecuController extends AbstractController
             'form' => $form->createView(),
         ]);         
        
+    }
+
+    // création de la route pour la connexion
+    #[Route('/login', name: 'connexion')]
+    // l'injection de dépendance permet d'instancier la classe AuthenticationUtils et de récupérer les erreurs de connexion
+    public function login(AuthenticationUtils $authenticationUtils): Response
+    {
+        return $this->render('admin_secu/login.html.twig', [
+            // on récupère le message d'erreur    
+            'lastUserName' => $authenticationUtils->getLastUsername(),            
+            'error' => $authenticationUtils->getLastAuthenticationError(),
+        ]);       
+    }
+
+    // création pour une route pour la déconnexion
+    #[Route('/deconnexion', name: 'deconnexion')]
+    public function deconnexion()
+    {
+        
     }
 }

@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Connexion {% endblock %}
+
+{% block monTitre %} Connexion {% endblock %}
+
+{% block body %}
+{# si on a un erreur on l'affichera grâce à error.messageKey que l'on a récupérer dans l'injection de dépence controller#}
+{% if error %}
+<div class="container">
+    <div class="alert alert-danger">
+        {{ error.messageKey|trans(error.messageData, 'security') }}
+    </div>
+</div>
+{% endif %}
+<div class="container">
+    <form action="{{ path('connexion') }}" method="post">
+        <div class="form-group">
+            <label for="username">login : </label>
+            <input type="text" class="form-control" id="username" name="_username" placeholder="Nom d'utilisateur" required>
+        </div>
+        <div class="form-group">
+            <label for="password">password : </label>
+            <input type="text" class="form-control" id="password" name="_password" placeholder="Nom d'utilisateur" required>
+        </div>
+        <input type="submit" class="btn btn-primary" value="S'identifier">
+    </form>
+</div>
+{% endblock %}
+

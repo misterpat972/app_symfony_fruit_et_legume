@@ -42,28 +42,33 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     // ajout du verifPassword qui n'est pas dans la BDD
     private ?string $verificationPassword = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $roles = null;
 
-// rôle de l'utilisateur
+
+    // rôle de l'utilisateur
     // #[ORM\Column(type: 'json')]
-    // private $roles = [];
-
+    // private $roles = []; 
+    
     public function getRoles(): array
     {
-        $roles = $this->roles;
+        return [$this->roles];
         // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
-
-        return array_unique($roles);
+        // $roles[] = 'ROLE_USER';    
     }
 
 
     /**
      * @see UserInterface
      */
-    public function setRoles(array $roles): self
+    public function setRoles(?string $roles): self
     {
-        $this->roles = $roles;
-
+        if ($roles === null) {
+            $this->roles = 'ROLE_USER';
+        }else {
+            $this->roles = $roles;
+        }
+             
         return $this;
     }
 // fin du role
@@ -75,7 +80,7 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUserIdentifier(): string
     {
-        return (string) $this->email;
+        return (string) $this->username;
     }
 
     /**
